@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Robot Therapist Transcriber by Kashub [~]o",
+  "version": "0.1.0",
+  "description": "Transcribes your ChatGPT, Gemini, or Claude session into a Markdown file for your Obsidian vault.",
+  "permissions": ["scripting", "contextMenus", "downloads"],
+  "options_page": "about.html",
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://gemini.google.com/*",
+    "https://claude.ai/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "logo.png",
+    "32": "logo.png",
+    "48": "logo.png",
+    "128": "logo.png"
+  },
+  "action": {
+    "default_title": "Export chat to Markdown",
+    "default_icon": {
+      "16": "logo.png",
+      "32": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    }
+  }
+}

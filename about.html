@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>About — Robot Therapist Transcriber</title>
+  <style>
+    :root { color-scheme: light dark; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      margin: 0;
+      padding: 1.75rem 1.75rem 1.5rem;
+      line-height: 1.5;
+      color: #1f1f23;
+      background: #fafafa;
+    }
+    @media (prefers-color-scheme: dark) {
+      body { color: #e8e8ea; background: #1c1c1e; }
+      code, .badge { background: #2c2c2e; color: #e8e8ea; }
+      .panel { background: #232325; border-color: #333; }
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    header img {
+      width: 96px;
+      height: 96px;
+      object-fit: contain;
+      flex-shrink: 0;
+      border-radius: 12px;
+    }
+    h1 { margin: 0 0 .35rem; font-size: 1.35rem; line-height: 1.2; }
+    .tagline { margin: 0; opacity: .7; font-size: .95rem; }
+    h2 {
+      font-size: .8rem;
+      margin: 1.5rem 0 .5rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      opacity: .55;
+    }
+    p { margin: .5rem 0; }
+    ol { padding-left: 1.25rem; margin: .5rem 0; }
+    ol li { margin-bottom: .3rem; }
+    code, .badge {
+      background: #ececef;
+      border-radius: 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .9em;
+    }
+    code { padding: .1em .35em; }
+    .badge { display: inline-block; padding: .1em .45em; }
+    .panel {
+      border: 1px solid #e2e2e5;
+      border-radius: 8px;
+      padding: .85rem 1rem;
+      background: #fff;
+      margin: .5rem 0;
+    }
+    a { color: inherit; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Robot Therapist Transcriber logo">
+    <div>
+      <h1>Robot Therapist Transcriber by Kashub [~]o</h1>
+      <p class="tagline">Send your AI conversations into Obsidian, locally.</p>
+    </div>
+  </header>
+
+  <p>One-click exporter for the open ChatGPT, Gemini, or Claude chat into a
+  Markdown file with YAML frontmatter, ready to drop into your Obsidian
+  vault. The extension auto-detects the provider from the active tab.</p>
+
+  <h2>How to use</h2>
+  <ol>
+    <li>Open a chat at <code>chatgpt.com</code>, <code>gemini.google.com</code>, or <code>claude.ai</code>.</li>
+    <li>Scroll all the way to the top so every message is loaded into the page (long chats are virtualised).</li>
+    <li>Click this extension's icon in your Chrome toolbar (the one with the logo above). A <code>.md</code> file downloads.</li>
+    <li>Move it into your Obsidian vault.</li>
+  </ol>
+
+  <h2>Toolbar badge</h2>
+  <div class="panel">
+    <span class="badge">OK</span> &nbsp; success — see DevTools console for filename<br>
+    <span class="badge">ERR</span> &nbsp; selectors didn't match the page DOM<br>
+    <span class="badge">?</span> &nbsp;&nbsp; not on a supported provider
+  </div>
+
+  <h2>Local &amp; auditable</h2>
+  <p>The whole extension is a small folder of plain JavaScript in a directory
+  you control. No third-party servers, no analytics, no auto-updates. After
+  editing the source, reload via <code>chrome://extensions</code>.</p>
+</body>
+</html>
