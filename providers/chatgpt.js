@@ -3,9 +3,20 @@
 (async () => {
   const { htmlToMd, sanitize, buildDocument, download, downloadAsset, report, resolveImgSrc } = globalThis.__aiExport;
 
-  const messages = Array.from(document.querySelectorAll("[data-message-author-role]"));
+  const getRole = (m) => {
+    const unitKey = m.getAttribute("data-chatgpt-search-unit-key") || "";
+    const roles = ["user", "assistant", "tool", "system"];
+    for (const r of roles) {
+      if (unitKey.includes(`:${r}`)) return r;
+    }
+    if (m.querySelector('[data-conversation-role="assistant"]')) return "assistant";
+    if (m.querySelector('[data-user-message-bubble="true"]')) return "user";
+    return "unknown";
+  };
+
+  const messages = Array.from(document.querySelectorAll("[data-chatgpt-search-message-ids]"));
   if (!messages.length) {
-    console.error("[ai-export] No messages found. ChatGPT may have changed the DOM. Selector: [data-message-author-role]");
+    console.error("[ai-export] No messages found. ChatGPT may have changed the DOM. Selector: [data-chatgpt-search-message-ids]");
     report(false, { reason: "no-messages" });
     return;
   }
@@ -85,7 +96,7 @@
   const TEXT_FILE_RE = /[\w\-.()][\w\-.()\s]{0,80}\.(pdf|docx?|xlsx?|csv|txt|md|zip|json)(?![a-zA-Z0-9])/gi;
   for (let idx = 0; idx < messages.length; idx++) {
     const m = messages[idx];
-    if (m.getAttribute("data-message-author-role") !== "user") continue;
+    if (getRole(m) !== "user") continue;
     const text = m.textContent || "";
     for (const match of text.matchAll(TEXT_FILE_RE)) {
       const name = match[0].trim();
@@ -134,7 +145,7 @@
     );
     for (let idx = 0; idx < messages.length; idx++) {
       const m = messages[idx];
-      if (m.getAttribute("data-message-author-role") !== "user") continue;
+      if (getRole(m) !== "user") continue;
       const html = m.innerHTML;
       if (m.children.length > 1 || html.length > 600) {
         console.warn(
@@ -166,8 +177,8 @@
   const partsArr = [];
   for (let idx = 0; idx < messages.length; idx++) {
     const m = messages[idx];
-    const role = m.getAttribute("data-message-author-role"); // user | assistant | tool | system
-    const content = m.querySelector(".markdown") ?? m;
+    const role = getRole(m); // user | assistant | tool | system
+    const content = m.querySelector('[data-markdown-text-style="assistant-message"], [data-user-message-bubble="true"]') ?? m;
     const consumed = new Set();
     let md = htmlToMd(content, { urlToLocal, consumed }).replace(/\n{3,}/g, "\n\n").trim();
     inlined += consumed.size;
